@@ -12,9 +12,9 @@ router.post('/users', async (req, res) => {
 
     try {
         await user.save()
-        sendWelcomeEmail(user.email, user.name)
+        // sendWelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()
-        res.status(200).send({ user, token })
+        res.status(201).send({ user, token })
     } catch(error) {
         res.status(400).send(error)
     }
@@ -24,7 +24,7 @@ router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send({ user, token})
+        res.send({ user, token })
     } catch (error) {
         res.status(400).send()
     }
@@ -69,7 +69,7 @@ router.patch('/users/me', auth, async (req, res) => {
 
     try {
         updates.forEach((update) => req.user[update] = req.body[update])
-        await user.save()
+        await req.user.save()
         res.send(req.user)
     } catch(error) {
         res.status(400).send(error)
@@ -79,7 +79,7 @@ router.patch('/users/me', auth, async (req, res) => {
 router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove()
-        sendCancellationEmail(req.user.email, req.user.name)
+        // sendCancellationEmail(req.user.email, req.user.name)
         res.send(req.user)
     } catch(error) {
         res.status(500).send()

@@ -29,3 +29,11 @@ The following endpoints are available in the API:
 | /tasks/:id       | GET    | Get a task by ID for the logged in user |
 | /tasks/:id       | PATCH  | Update a task by ID for the logged in user |
 | /tasks/:id       | DELETE | Delete a task by ID for the logged in user |
+
+
+## Technologies Used
+Support ticket app is built using the following technologies:
+
+- Node
+- Express
+- MongoDB
